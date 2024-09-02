@@ -19,12 +19,12 @@
     "react-router-dom": "^6.26.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4",
-    "serve": "^14.1.2"  // Asegúrate de tener `serve` aquí
+    "serve": "^14.1.2"  
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "web": "npm run build && npx serve -s build",  // Este es el script correcto
+    "web": "npm run build && npx serve -s build",  
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
