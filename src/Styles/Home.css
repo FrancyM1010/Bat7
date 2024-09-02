@@ -1,0 +1,128 @@
+/* Home.css */
+.home-container {
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(to right, #4caf50, #81c784);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .home-title {
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 10px;
+    animation: slide-in 1s ease-out;
+  }
+  
+  .home-subtitle {
+    font-size: 1.5em;
+    color: #f1f1f1;
+    margin-bottom: 30px;
+    animation: fade-in 2s ease-out;
+  }
+  
+  .start-button {
+    background-color: #ff4081;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    animation: bounce 2s infinite;
+  }
+  
+  .start-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .animated-elements .floating-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    animation: float 6s infinite ease-in-out;
+  }
+  
+  .shape1 {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  
+  .shape2 {
+    width: 200px;
+    height: 200px;
+    bottom: 15%;
+    right: 15%;
+    animation-delay: 2s;
+  }
+  
+  .shape3 {
+    width: 100px;
+    height: 100px;
+    top: 40%;
+    right: 30%;
+    animation-delay: 4s;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+  }
+  
+  .fade-out {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+  }
+  
