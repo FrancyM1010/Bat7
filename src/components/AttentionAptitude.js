@@ -50,10 +50,8 @@ const AttentionAptitude = () => {
   const handleLetterClick = (letter) => {
     if (letter === questions[currentQuestion].answer) {
       setScore((prevScore) => prevScore + 1);
-      handleNextQuestion(); // Avanzar a la siguiente pregunta si la respuesta es correcta
-    } else {
-      handleNextQuestion(); // Avanzar a la siguiente pregunta si la respuesta es incorrecta
     }
+    handleNextQuestion();
   };
 
   return (

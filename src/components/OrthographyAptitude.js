@@ -7,6 +7,7 @@ const OrthographyAptitude = () => {
   const { updateScore } = useContext(GameContext);
   const navigate = useNavigate();
 
+  // Reducido a solo dos preguntas
   const questions = [
     { question: "¿Cuál palabra está mal escrita?", options: ["A. año", "B. berso", "C. vuelo", "D. campana"], answer: "B" },
     { question: "¿Cuál palabra está mal escrita?", options: ["A. bosque", "B. armario", "C. telon", "D. libro"], answer: "C" },
@@ -16,19 +17,16 @@ const OrthographyAptitude = () => {
   const [score, setScore] = useState(0);
 
   const handleAnswerOptionClick = (option) => {
-    const isCorrect = option === questions[currentQuestion].answer;
-
-    if (isCorrect) {
-      setScore((prevScore) => prevScore + 1);
+    if (option === questions[currentQuestion].answer) {
+      setScore(score + 1);
     }
 
-    if (currentQuestion === questions.length - 1) {
-      // Final question, update the score and navigate to results
-      updateScore('orthography', score + (isCorrect ? 1 : 0)); // Include the last question's score
-      navigate('/results');
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
     } else {
-      // Proceed to next question
-      setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+      updateScore('orthography', score);  // No se suma 1, ya que eso se hace solo si la respuesta es correcta
+      navigate('/results');
     }
   };
 

@@ -24,6 +24,9 @@ const Consent = () => {
         <button onClick={() => handleConsent(true)}>Sí, deseo continuar</button>
         <button onClick={() => handleConsent(false)}>No, cerrar el juego</button>
       </div>
+      <div className="data-authorization">
+        <p>De conformidad con lo establecido por la Ley 1581 de 2012, el Decreto Reglamentario 1074 de 2015 y las demás normas que las modifiquen y/o amplíen, autorizo de manera libre, expresa e informada a la Universidad Pontificia Bolivariana para recolectar, almacenar, circular y utilizar los datos personales suministrados mediante el presente formato. El tratamiento de los datos personales estará sujeto a las siguientes finalidades: i) Comunicar mediante correos electrónicos, redes sociales, plataformas virtuales propias o determinadas por la institución, mensajes de texto, aplicaciones de mensajería instantánea y/o llamadas telefónicas, información institucional y/o promocional de la Universidad Pontificia Bolivariana. ii) Establecer contacto mediante llamadas telefónicas, mensajes de texto, aplicaciones de mensajería instantánea, redes sociales y/o correos electrónicos, con el fin de ofertar los programas académicos de pregrado y posgrado de la universidad, así como las demás actividades y capacitaciones académicas que desarrollen las diferentes áreas de la Universidad Pontificia Bolivariana, iii) Recibir información comercial propia de la actividad de la Institución. Manifiesto que he consultado en https://www.upb.edu.co el Manual de Políticas de Tratamiento de Información y Protección de los Datos Personales y certifico que conozco sobre mis derechos para solicitar la eliminación, rectificación, actualización y supresión de mis datos personales, mediante los canales dispuestos por la universidad.</p>
+      </div>
     </div>
   );
 };
