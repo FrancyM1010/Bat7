@@ -18,16 +18,17 @@ const OrthographyAptitude = () => {
   const handleAnswerOptionClick = (option) => {
     const isCorrect = option === questions[currentQuestion].answer;
 
-    const newScore = isCorrect ? score + 1 : score;
+    if (isCorrect) {
+      setScore((prevScore) => prevScore + 1);
+    }
 
     if (currentQuestion === questions.length - 1) {
-      // Actualizar el puntaje y navegar a resultados
-      updateScore('orthography', newScore);
+      // Final question, update the score and navigate to results
+      updateScore('orthography', score + (isCorrect ? 1 : 0)); // Include the last question's score
       navigate('/results');
     } else {
-      // Actualizar el puntaje y avanzar a la siguiente pregunta
-      setScore(newScore);
-      setCurrentQuestion(currentQuestion + 1);
+      // Proceed to next question
+      setCurrentQuestion((prevQuestion) => prevQuestion + 1);
     }
   };
 

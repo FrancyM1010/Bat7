@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { GameContext } from './GameContext';
 import { Bar } from 'react-chartjs-2';
 import generatePDF from './ReportGenerator';
@@ -11,6 +11,10 @@ const Results = () => {
   const { scores } = useContext(GameContext);
   const [userData, setUserData] = useState({ name: '', age: '', email: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    console.log('Updated Scores:', scores); // Log para verificar los puntajes
+  }, [scores]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
