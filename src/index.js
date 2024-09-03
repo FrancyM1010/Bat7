@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { GameProvider } from './components/GameContext';
 import Home from './components/Home';
 import VerbalAptitude from './components/VerbalAptitude';
@@ -12,11 +12,11 @@ import NumericalAptitude from './components/NumericalAptitude';
 import MechanicalAptitude from './components/MechanicalAptitude';
 import OrthographyAptitude from './components/OrthographyAptitude';
 import Results from './components/Results';
-import Consent from './components/Consent'; // Importa el componente de consentimiento
+import Consent from './components/Consent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-import Logo from './Images/Logo.jpg'; // Importa la imagen del logo
+import Logo from './Images/Logo.jpg';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -29,8 +29,8 @@ root.render(
     <GameProvider>
       <Router>
         <Routes>
-          <Route exact path="/" element={<Consent />} /> {/* Inicia con el consentimiento */}
-          <Route path="/home" element={<Home />} /> {/* Redirige al Home después del consentimiento */}
+          <Route exact path="/" element={<Consent />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/verbal" element={<VerbalAptitude />} />
           <Route path="/spatial" element={<SpatialAptitude />} />
           <Route path="/attention" element={<AttentionAptitude />} />
