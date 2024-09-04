@@ -52,8 +52,7 @@ const NumericalAptitude = () => {
         setCurrentQuestion(nextQuestion);
       } else {
         updateScore('numerical', score + (isCorrect ? 1 : 0)); // Asegura que la última respuesta se cuente correctamente
-        alert(`¡Has completado la prueba! Tu puntaje es ${score + (isCorrect ? 1 : 0)}/${questions.length}`);
-        navigate(nextGame);
+        navigate(nextGame);  // Navega al siguiente juego sin alert
       }
     }, 1000); // Transición de 1 segundo
   };

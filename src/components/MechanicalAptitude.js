@@ -50,8 +50,7 @@ const MechanicalAptitude = () => {
         setCurrentQuestion(nextQuestion);
       } else {
         updateScore('mechanical', isCorrect ? score + 1 : score); // Asegura que la última pregunta se cuente
-        alert(`¡Has completado la prueba! Tu puntaje es ${isCorrect ? score + 1 : score}/${questions.length}`);
-        navigate(nextGame);
+        navigate(nextGame); // Navegamos al siguiente juego sin alert
       }
     }, 1000); // Transición de 1 segundo
   };
