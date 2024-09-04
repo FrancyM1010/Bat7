@@ -9,11 +9,11 @@ Chart.register(...registerables);
 
 const Results = () => {
   const { scores } = useContext(GameContext);
-  const [userData, setUserData] = useState({ name: '', age: '', email: '' });
+  const [userData, setUserData] = useState({ name: '', age: '', email: '', phone: '' });  // Añadimos el teléfono
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    console.log('Updated Scores:', scores); // Log para verificar los puntajes
+    console.log('Updated Scores:', scores);
   }, [scores]);
 
   const handleChange = (e) => {
@@ -23,19 +23,18 @@ const Results = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (userData.name && userData.age && userData.email) {
+    if (userData.name && userData.age && userData.email && userData.phone) {
       setIsSubmitted(true);
     } else {
       alert('Por favor, completa todos los campos.');
     }
   };
 
-  // Calcular porcentajes
   const toPercentage = (score, maxScore) => {
     return ((score / maxScore) * 100).toFixed(2);
   };
 
-  const maxScore = 2; // Puntaje máximo en cada aptitud
+  const maxScore = 2;
 
   const chartData = {
     labels: [
@@ -72,6 +71,7 @@ const Results = () => {
     name: userData.name,
     age: userData.age,
     email: userData.email,
+    phone: userData.phone,  // Incluimos el teléfono
     testDate: new Date().toLocaleDateString(),
     verbalScore: `${toPercentage(scores.verbal, maxScore)}%`,
     spatialScore: `${toPercentage(scores.spatial, maxScore)}%`,
@@ -116,6 +116,16 @@ const Results = () => {
                 type="email"
                 name="email"
                 value={userData.email}
+                onChange={handleChange}
+                required
+              />
+            </label>
+            <label>
+              Teléfono:  {/* Nuevo campo de teléfono */}
+              <input
+                type="tel"
+                name="phone"
+                value={userData.phone}
                 onChange={handleChange}
                 required
               />
@@ -168,7 +178,22 @@ const Results = () => {
 
           <div className="interpretation">
             <h2>Interpretación</h2>
-            <p dangerouslySetInnerHTML={{ __html: reportData.interpretation }}></p>
+            <p
+              className="interpretation-text"  // Añadimos clase CSS para estilizar la interpretación
+              dangerouslySetInnerHTML={{ __html: reportData.interpretation }}
+            ></p>
+
+            <div className="contact-info"> {/* Información adicional de contacto */}
+              <h3 style={{ textAlign: 'center', color: '#d32f2f', marginTop: '20px' }}>
+                ¿Deseas una consulta de orientación vocacional profesional?
+              </h3>
+              <p style={{ textAlign: 'center', fontSize: '1.2em', color: '#d32f2f', fontWeight: 'bold' }}>
+                Comunícate con nosotros: <br />
+                <a href="mailto:labpsicologia.bga@upb.edu.co" style={{ color: '#1976d2', textDecoration: 'none' }}>
+                  labpsicologia.bga@upb.edu.co
+                </a>
+              </p>
+            </div>
           </div>
 
           <button className="download-pdf-button" onClick={() => generatePDF(reportData)}>
@@ -273,7 +298,6 @@ const generateInterpretation = (scores, maxScore, age) => {
     }
   }
 
-  // Agregar Disclaimer al final de la interpretación en HTML
   interpretation += "<br><strong>Disclaimer:</strong> Este reporte tiene fines únicamente informativos. Para una evaluación más profunda y profesional de tus aptitudes y vocaciones, se recomienda realizar una prueba vocacional con un especialista.";
 
   return interpretation;

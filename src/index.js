@@ -16,7 +16,7 @@ import Consent from './components/Consent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-import Logo from './Images/Logo.jpg';
+import Logo from './Images/Logo.png';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

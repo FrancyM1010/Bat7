@@ -15,6 +15,7 @@ export const GameProvider = ({ children }) => {
   });
 
   const updateScore = (aptitude, result) => {
+    console.log(`Updating score for ${aptitude}:`, result);  // Log para depuración
     setScores((prevScores) => ({
       ...prevScores,
       [aptitude]: result,
