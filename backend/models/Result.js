@@ -10,6 +10,7 @@ const ResultSchema = new mongoose.Schema({
   numerica: { type: Number, required: true },
   mecanica: { type: Number, required: true },
   ortografia: { type: Number, required: true },
+  wantsContact: { type: Boolean, default: false },  // Nuevo campo agregado
   fecha: { type: Date, default: Date.now }
 });
 

@@ -4,9 +4,9 @@ const router = express.Router();
 
 // Enviar resultados
 router.post('/submit-results', async (req, res) => {
-  const { userId, verbal, espacial, atencion, concentracion, razonamiento, numerica, mecanica, ortografia } = req.body;
+  const { userId, verbal, espacial, atencion, concentracion, razonamiento, numerica, mecanica, ortografia, wantsContact } = req.body;
   try {
-    const result = new Result({ userId, verbal, espacial, atencion, concentracion, razonamiento, numerica, mecanica, ortografia });
+    const result = new Result({ userId, verbal, espacial, atencion, concentracion, razonamiento, numerica, mecanica, ortografia, wantsContact });
     await result.save();
     res.json(result);
   } catch (err) {
@@ -15,11 +15,22 @@ router.post('/submit-results', async (req, res) => {
   }
 });
 
-// Obtener resultados
-router.get('/get-results/:userId', async (req, res) => {
+// Obtener todos los resultados
+router.get('/get-results', async (req, res) => {
   try {
-    const results = await Result.find({ userId: req.params.userId });
+    const results = await Result.find().populate('userId', 'nombre email phone');
     res.json(results);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// Obtener usuarios que desean ser contactados
+router.get('/get-contacted-users', async (req, res) => {
+  try {
+    const contactedUsers = await Result.find({ wantsContact: true }).populate('userId', 'nombre email phone');
+    res.json(contactedUsers);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

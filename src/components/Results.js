@@ -9,7 +9,7 @@ Chart.register(...registerables);
 
 const Results = () => {
   const { scores } = useContext(GameContext);
-  const [userData, setUserData] = useState({ name: '', age: '', email: '', phone: '' });  // Añadimos el teléfono
+  const [userData, setUserData] = useState({ name: '', age: '', email: '', phone: '', wantsContact: false });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
@@ -17,14 +17,23 @@ const Results = () => {
   }, [scores]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({ ...userData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setUserData({ ...userData, [name]: type === 'checkbox' ? checked : value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userData.name && userData.age && userData.email && userData.phone) {
       setIsSubmitted(true);
+      if (userData.wantsContact) {
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData),
+        }).then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error('Error:', error));
+      }
     } else {
       alert('Por favor, completa todos los campos.');
     }
@@ -68,10 +77,7 @@ const Results = () => {
   };
 
   const reportData = {
-    name: userData.name,
-    age: userData.age,
-    email: userData.email,
-    phone: userData.phone,  // Incluimos el teléfono
+    ...userData,
     testDate: new Date().toLocaleDateString(),
     verbalScore: `${toPercentage(scores.verbal, maxScore)}%`,
     spatialScore: `${toPercentage(scores.spatial, maxScore)}%`,
@@ -121,7 +127,7 @@ const Results = () => {
               />
             </label>
             <label>
-              Teléfono:  {/* Nuevo campo de teléfono */}
+              Teléfono:
               <input
                 type="tel"
                 name="phone"
@@ -129,6 +135,15 @@ const Results = () => {
                 onChange={handleChange}
                 required
               />
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="wantsContact"
+                checked={userData.wantsContact}
+                onChange={handleChange}
+              />
+              ¿Deseas que te contactemos para orientación vocacional?
             </label>
             <button type="submit">Ver Resultados</button>
           </form>
@@ -179,11 +194,11 @@ const Results = () => {
           <div className="interpretation">
             <h2>Interpretación</h2>
             <p
-              className="interpretation-text"  // Añadimos clase CSS para estilizar la interpretación
+              className="interpretation-text"
               dangerouslySetInnerHTML={{ __html: reportData.interpretation }}
             ></p>
 
-            <div className="contact-info"> {/* Información adicional de contacto */}
+            <div className="contact-info">
               <h3 style={{ textAlign: 'center', color: '#d32f2f', marginTop: '20px' }}>
                 ¿Deseas una consulta de orientación vocacional profesional?
               </h3>
@@ -191,7 +206,8 @@ const Results = () => {
                 Comunícate con nosotros: <br />
                 <a href="mailto:labpsicologia.bga@upb.edu.co" style={{ color: '#1976d2', textDecoration: 'none' }}>
                   labpsicologia.bga@upb.edu.co
-                </a>
+                </a> <br />
+                Tel: (607) 6796220 Ext:20641
               </p>
             </div>
           </div>
@@ -211,6 +227,7 @@ const ResultCard = ({ title, score }) => (
     <p>{score}</p>
   </div>
 );
+
 
 const generateInterpretation = (scores, maxScore, age) => {
   const toPercentage = (score, maxScore) => {

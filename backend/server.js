@@ -6,7 +6,10 @@ const resultRoutes = require('./routes/results');
 const app = express();
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/bat7', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(require('./config').mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use('/api/auth', authRoutes);
 app.use('/api/results', resultRoutes);
