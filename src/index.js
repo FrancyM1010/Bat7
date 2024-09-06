@@ -24,7 +24,8 @@ root.render(
   <React.StrictMode>
     <div className="logo-container">
       <img src={Logo} alt="Logo UPB" className="logo-upb" />
-      <p className="logo-text">Juego diseñado por: Francy Moreno</p>
+      <p className="logo-text">Facultad de Psicología</p>
+      <p className="logo-text">Estrategia diseñado por: Francy Moreno</p>
     </div>
     <GameProvider>
       <Router>
