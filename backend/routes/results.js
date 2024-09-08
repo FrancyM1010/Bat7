@@ -5,13 +5,19 @@ const router = express.Router();
 // Enviar resultados
 router.post('/submit-results', async (req, res) => {
   const { userId, verbal, espacial, atencion, concentracion, razonamiento, numerica, mecanica, ortografia, wantsContact } = req.body;
+
+  // Verificar campos requeridos
+  if (!userId || !verbal || !espacial || !atencion || !concentracion || !razonamiento || !numerica || !mecanica || !ortografia) {
+    return res.status(400).json({ msg: 'Todos los campos son requeridos.' });
+  }
+
   try {
     const result = new Result({ userId, verbal, espacial, atencion, concentracion, razonamiento, numerica, mecanica, ortografia, wantsContact });
     await result.save();
     res.json(result);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send('Error en el servidor');
   }
 });
 
@@ -36,5 +42,7 @@ router.get('/get-contacted-users', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+
 
 module.exports = router;
