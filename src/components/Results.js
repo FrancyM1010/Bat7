@@ -25,15 +25,26 @@ const Results = () => {
     e.preventDefault();
     if (userData.name && userData.age && userData.email && userData.phone) {
       setIsSubmitted(true);
-      if (userData.wantsContact) {
-        fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData),
-        }).then(response => response.json())
-          .then(data => console.log(data))
-          .catch(error => console.error('Error:', error));
-      }
+
+      // Enviar los datos al backend para guardarlos en MongoDB
+      fetch('http://localhost:5000/api/results/submit-results', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: userData.email,  // Puedes usar email como identificador
+          verbal: scores.verbal,
+          espacial: scores.spatial,
+          atencion: scores.attention,
+          concentracion: scores.concentration,
+          razonamiento: scores.reasoning,
+          numerica: scores.numerical,
+          mecanica: scores.mechanical,
+          ortografia: scores.orthography,
+          wantsContact: userData.wantsContact,
+        }),
+      }).then(response => response.json())
+        .then(data => console.log(data))  // Verificar respuesta del backend
+        .catch(error => console.error('Error:', error));
     } else {
       alert('Por favor, completa todos los campos.');
     }
@@ -227,6 +238,7 @@ const ResultCard = ({ title, score }) => (
     <p>{score}</p>
   </div>
 );
+
 
 
 const generateInterpretation = (scores, maxScore, age) => {

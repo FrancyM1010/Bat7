@@ -16,3 +16,7 @@ app.use('/api/results', resultRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+const cors = require('cors');
+app.use(cors());
+
